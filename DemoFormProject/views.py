@@ -184,7 +184,7 @@ def DataModel():
 @app.route('/DataSet1')
 def DataSet1():
 
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\movies_metadata.csv'))
     raw_data_table = df.to_html(classes = 'table table-hover')
 
 
@@ -196,5 +196,3 @@ def DataSet1():
         year=datetime.now().year,
         message='In this page we will display the datasets we are going to use in order to answer ARE THERE UFOs'
     )
-
-

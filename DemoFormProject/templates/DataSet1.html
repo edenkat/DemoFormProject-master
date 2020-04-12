@@ -2,12 +2,73 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<h2>{{title}}</h2>
 
-<p>Use this area to provide additional information.</p>
+<h3>{{message}}</h3>
 
-{{ raw_data_table | safe}}
+
+<div class="row" style="background-color:cadetblue">
+    <div class="col-md-6"><strong>title</strong></div>
+    <div class="col-md-6"><strong>The title of the movie</strong></div>
+</div>
+<div class="row" style="background-color:lightsteelblue">
+    <div class="col-md-6">runtime</div>
+    <div class="col-md-6">The time of the movie</div>
+</div>
+<div class="row" style="background-color:cadetblue">
+    <div class="col-md-6">production companies</div>
+    <div class="col-md-6">The company that made the movie</div>
+</div>
+<div class="row" style="background-color:lightsteelblue">
+    <div class="col-md-6">poster_path</div>
+    <div class="col-md-6">Link to the movie poster</div>
+</div>
+<div class="row" style="background-color:cadetblue">
+    <div class="col-md-6">popularity</div>
+    <div class="col-md-6">The amount of popularity of the movie</div>
+</div>
+<div class="row" style="background-color:lightsteelblue">
+    <div class="col-md-6">overview</div>
+    <div class="col-md-6">Concise Summary of the film</div>
+</div>
+<div class="row" style="background-color:cadetblue">
+    <div class="col-md-6">original title</div>
+    <div class="col-md-6">The name originally in the movie</div>
+</div>
+<div class="row" style="background-color:lightsteelblue">
+    <div class="col-md-6">original language</div>
+    <div class="col-md-6">The language in which the movie was originally</div>
+</div>
+<div class="row" style="background-color:cadetblue">
+    <div class="col-md-6">budget</div>
+    <div class="col-md-6">The film's Budget</div>
+</div>
+<div class="row" style="background-color:lightsteelblue">
+    <div class="col-md-6">adult</div>
+    <div class="col-md-6">Is the film a mere adult view only</div>
+</div>
+
+<br />
+
+<p>
+    <a class="btn btn-success" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Expand
+    </a>
+    <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Collapse
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        {{ raw_data_table | safe}}
+    </div>
+</div>
+
+
+
+
+
 
 
 {% endblock %}
+
