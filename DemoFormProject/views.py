@@ -175,9 +175,9 @@ def DataModel():
     """Renders the contact page."""
     return render_template(
         'DataModel.html',
-        title='This is my Data Model page abou UFO',
+        title='This is my Data Model page about movies,budget and popoularity',
         year=datetime.now().year,
-        message='In this page we will display the datasets we are going to use in order to answer ARE THERE UFOs'
+        message='In this page we will check if the amount of budget affects the popularity of the film'
     )
 
 
@@ -191,8 +191,8 @@ def DataSet1():
     """Renders the contact page."""
     return render_template(
         'DataSet1.html',
-        title='This is Data Set 1 page',
+        title='This is Data Set page',
         raw_data_table = raw_data_table,
         year=datetime.now().year,
-        message='In this page we will display the datasets we are going to use in order to answer ARE THERE UFOs'
+        message='In this page we will check if the amount of budget affects the popularity of the film '
     )
