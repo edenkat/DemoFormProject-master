@@ -51,9 +51,11 @@
     <Folder Include="DemoFormProject\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DemoFormProject\static\Data\movies_metadata original.csv" />
     <Content Include="DemoFormProject\static\Data\movies_metadata.csv" />
     <Content Include="DemoFormProject\static\Data\users.csv" />
     <Content Include="DemoFormProject\static\Data\capitals.csv" />
+    <Content Include="DemoFormProject\static\Pics\pic2.jpg" />
     <Content Include="DemoFormProject\static\Pics\pic1.jpg" />
     <Content Include="DemoFormProject\templates\DataModel.html" />
     <Content Include="DemoFormProject\templates\DataSet1.html" />

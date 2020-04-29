@@ -22,7 +22,8 @@ from wtforms.validators import DataRequired
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
-    name   = StringField('Country Name:  ' , validators = [DataRequired()])
+    genres = SelectField('choose genres:' )
+    year = StringField('enter year between 1900 - 2017:')
     submit = SubmitField('Submit')
 
 

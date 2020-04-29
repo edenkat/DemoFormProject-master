@@ -39,6 +39,13 @@ from DemoFormProject.Models.QueryFormStructure import UserRegistrationFormStruct
 
 ###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
+import base64
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+
+from flask_bootstrap import Bootstrap
+bootstrap = Bootstrap(app)
+
 db_Functions = create_LocalDatabaseServiceRoutines() 
 
 
@@ -87,34 +94,43 @@ def Album():
 @app.route('/Query', methods=['GET', 'POST'])
 def Query():
 
-    Name = None
-    Country = ''
-    capital = ''
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
-    df = df.set_index('Country')
-
-    raw_data_table = df.to_html(classes = 'table table-hover')
-
     form = QueryFormStructure(request.form)
+    l= ['Comedy','Animation','Crime','Fantasy','Adventure','Family','Drama','Romance','Thriller','Action','Horror','History','Science Fiction','Mystery']
+
+    form.genres.choices =list(zip(l,l))
+ 
+    chart = "static/Pics/pic2.jpg"
      
     if (request.method == 'POST' ):
-        name = form.name.data
-        Country = name
-        if (name in df.index):
-            capital = df.loc[name,'Capital']
-            raw_data_table = ""
-        else:
-            capital = name + ', no such country'
-        form.name.data = ''
-
+        genres = form.genres.data
+        year = form.year.data
+        df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\movies_metadata original.csv'),encoding='latin-1',low_memory=False)
+        df=df[["title","budget","popularity","genres","release_date"]]
+        df=df.dropna()
+        df["budget"]=df["budget"].astype(int)
+        df=df[df["budget"]>100000]
+        df=df[df["genres"].str.contains(genres)]
+        df=df[df["release_date"].str.contains(year)]
+        df=df.drop("genres",1)
+        df=df.drop("release_date",1)
+        df=df.set_index("title")
+        df["popularity"]=df["popularity"].astype(float)
+        #df=df[df["popularity"]<50]
+        df["budget"]=df["budget"].apply(lambda x: x/1000000)
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.set_xlabel("budget",fontsize = 22)
+        ax.set_ylabel("popularity",fontsize = 22)
+        df.plot("budget","popularity",kind="scatter",ax=ax,figsize=(20,50),fontsize = 22) 
+        for k, v in df.iterrows():
+            ax.annotate(k, v,size = 22)
+        chart = plot_to_img(fig)
 
 
     return render_template('Query.html', 
-            form = form, 
-            name = capital, 
-            Country = Country,
-            raw_data_table = raw_data_table,
-            title='Query by the user',
+            form = form,
+            chart = chart,
+            title='Query',
             year=datetime.now().year,
             message='This page will use the web forms to get user input'
         )
@@ -196,3 +212,10 @@ def DataSet1():
         year=datetime.now().year,
         message='In this page we will check if the amount of budget affects the popularity of the film '
     )
+
+def plot_to_img(fig):
+    pngImage = io.BytesIO()
+    FigureCanvas(fig).print_png(pngImage)
+    pngImageB64String = "data:image/png;base64,"
+    pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
+    return pngImageB64String
