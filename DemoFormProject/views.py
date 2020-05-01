@@ -115,7 +115,6 @@ def Query():
         df=df.drop("release_date",1)
         df=df.set_index("title")
         df["popularity"]=df["popularity"].astype(float)
-        #df=df[df["popularity"]<50]
         df["budget"]=df["budget"].apply(lambda x: x/1000000)
         fig = plt.figure()
         ax = fig.add_subplot(111)
