@@ -3,23 +3,23 @@
 
 {% block content %}
 
-<div class="row">
+    <div class="row">
 
-    <div class="col-md-4">
-        <form method="post">
-            {{ form.csrf_token }}
-            {{ wtf.form_field(form.genres)}}
-            {{ wtf.form_field(form.year)}}
-            <input class="btn btn-primary" type="submit" value="submit">
-        </form>
-    </div>
-    <div class="col-md-8">
-        <div class="row">
-            <h4>budget,popularity and movies</h4>
-            <img src={{ chart }} class="img-thumbnail" alt="not found">
+        <div class="col-md-4">
+            <form method="post">
+                {{ form.csrf_token }}
+                {{ wtf.form_field(form.genres)}}
+                {{ wtf.form_field(form.year)}}
+                <input class="btn btn-primary" type="submit" value="submit">
+            </form>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <h4>budget, popularity and movies</h4>
+                <img src={{ chart }} class="img-thumbnail" alt="not found">
+            </div>
         </div>
     </div>
-</div>
 
 <hr />
 

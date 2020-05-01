@@ -92,14 +92,14 @@ def Album():
 
 
 @app.route('/Query', methods=['GET', 'POST'])
-def Query():
+def Query(): # יצירת דף הקוורי והגרף
 
     form = QueryFormStructure(request.form)
-    l= ['Comedy','Animation','Crime','Fantasy','Adventure','Family','Drama','Romance','Thriller','Action','Horror','History','Science Fiction','Mystery']
+    l= ['Comedy','Animation','Crime','Fantasy','Adventure','Family','Drama','Romance','Thriller','Action','Horror','History','Science Fiction','Mystery'] # כתיבת כל סוגי הג'אנרים שיוצגו
 
-    form.genres.choices =list(zip(l,l))
+    form.genres.choices =list(zip(l,l)) # יצירת הרשימה המוצגת לבחירת הג'אנר
  
-    chart = "static/Pics/pic2.jpg"
+    chart = "static/Pics/pic2.jpg" # הוספת תמונה בדף הבחירה 
      
     if (request.method == 'POST' ):
         genres = form.genres.data
