@@ -104,12 +104,12 @@ def Query(): # יצירת דף הקוורי והגרף
     if (request.method == 'POST' ):
         genres = form.genres.data
         year = form.year.data
-        df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\movies_metadata original.csv'),encoding='latin-1',low_memory=False)
-        df=df[["title","budget","popularity","genres","release_date"]]
+        df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\movies_metadata original.csv'),encoding='latin-1',low_memory=False) #לקיחת המידע מהדאטא סט שלי
+        df=df[["title","budget","popularity","genres","release_date"]] # העמודות בהן אני משתמשת לקבלת הנתונים הנחוצים לי ליצירת הגרף
         df=df.dropna()
-        df["budget"]=df["budget"].astype(int)
-        df=df[df["budget"]>100000]
-        df=df[df["genres"].str.contains(genres)]
+        df["budget"]=df["budget"].astype(int)#לקיחת התקציב והפיכתו למספר שלם
+        df=df[df["budget"]>100000]#אני אשתמש רק בתקציבים מעל מאה אלף שקל בכדי להקטין את כמות הסרטים שיופיעו בגרף כדי שיהיה מסודר
+        df=df[df["genres"].str.contains(genres)]#
         df=df[df["release_date"].str.contains(year)]
         df=df.drop("genres",1)
         df=df.drop("release_date",1)
@@ -171,7 +171,7 @@ def Login():
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
             flash('Login approved!')
-            #return redirect('<were to go if login is good!')
+            return redirect('Query')
         else:
             flash('Error in - Username and/or password')
    
