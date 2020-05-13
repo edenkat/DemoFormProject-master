@@ -18,8 +18,8 @@ from wtforms.validators import DataRequired
 
 ## This class have the fields that are part of the Country-Capital demonstration
 ## You can see two fields:
-##   the 'genres' field - will be used to get the gener of the movie
-##   the '
+##   the 'genres' field - will be used to get the genres of the movie
+##   the 'year' field - will be used to get the year of the movie
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
