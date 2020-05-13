@@ -18,7 +18,8 @@ from wtforms.validators import DataRequired
 
 ## This class have the fields that are part of the Country-Capital demonstration
 ## You can see two fields:
-##   the 'name' field - will be used to get the country name
+##   the 'genres' field - will be used to get the gener of the movie
+##   the '
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
@@ -65,16 +66,5 @@ class UserRegistrationFormStructure(FlaskForm):
     password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
     submit = SubmitField('Submit')
 
-## This class have the fields that the user can set, to have the query parameters for analysing the data
-##   This form is where the user can set different parameters, depand on your project,
-##   that will be used to do the data analysis (using Pandas etc.)
-## You can see three fields:
-##   The fields that will be part of this form are specific to your project
-##   Please complete this class according to your needs
-##   the 'submit' button - the button the user will press to have the 
-##                         form be "posted" (sent to the server for process)
-#class DataParametersFormStructure(FlaskForm):
-#    
-#    submit = SubmitField('Submit')
 
 

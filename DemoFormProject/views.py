@@ -1,18 +1,14 @@
 """
-Routes and views for the flask application.
+my name is Eden Katorza and this is my project
 """
 
 from datetime import datetime
-from flask import render_template
 from DemoFormProject import app
 from DemoFormProject.Models.LocalDatabaseRoutines import create_LocalDatabaseServiceRoutines
 
-
-from datetime import datetime
 from flask import render_template, redirect, request
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 import numpy as np
@@ -37,7 +33,6 @@ from DemoFormProject.Models.QueryFormStructure import QueryFormStructure
 from DemoFormProject.Models.QueryFormStructure import LoginFormStructure 
 from DemoFormProject.Models.QueryFormStructure import UserRegistrationFormStructure 
 
-###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
 import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -80,16 +75,6 @@ def about():
     )
 
 
-@app.route('/Album')
-def Album():
-    """Renders the about page."""
-    return render_template(
-        'PictureAlbum.html',
-        title='Pictures',
-        year=datetime.now().year,
-        message='Welcome to my picture album'
-    )
-
 #יצירת דף הקוורי
 @app.route('/Query', methods=['GET', 'POST'])
 def Query(): # יצירת דף הקוורי והגרף
@@ -113,13 +98,13 @@ def Query(): # יצירת דף הקוורי והגרף
         df=df[df["release_date"].str.contains(year)]#קבלת השנה שבה בחר המשתמש והוצאת הסרטים שבהם שנה זו נמצאת
         df=df.drop("genres",1)#בכדי שנוכל להמשיך הלאה יותר מסודר "זרקנו" בנתיים את הז'אנר כי כבר ניתחנו את הנתונים וסיימנו להשתמש בו
         df=df.drop("release_date",1)#בכדי שנוכל להמשיך הלאה יותר מסודר "זרקנו" בנתיים את השנה כי כבר ניתחנו את הנתונים וסיימנו להשתמש בה
-        df=df.set_index("title")#
+        df=df.set_index("title")
         df["popularity"]=df["popularity"].astype(float)#לקיחת הפופולריות והפיכתו
         df["budget"]=df["budget"].apply(lambda x: x/1000000)# לקיחת עמודת התקציב ולחלקה למיליון בכדי שהגרף יהיה יותר מסודר ושהתקציב יינתן במיליונים
         fig = plt.figure()
         ax = fig.add_subplot(111)#הכנת הגרף
         ax.set_xlabel("budget",fontsize = 22)#הכנת שורת התקציב וגודל הכיתוב של "budget" 
-        ax.set_ylabel("popularity",fontsize = 22)#הכנת שורת התקציב וגודל הכיתוב של "budget"
+        ax.set_ylabel("popularity",fontsize = 22)#הכנת שורת התקציב וגודל הכיתוב של "popularity"
         df.plot("budget","popularity",kind="scatter",ax=ax,figsize=(20,50),fontsize = 22) #הכנת שורות הגרפים
         for k, v in df.iterrows():
             ax.annotate(k, v,size = 22)
@@ -136,6 +121,7 @@ def Query(): # יצירת דף הקוורי והגרף
 # -------------------------------------------------------
 # Register new user page
 # -------------------------------------------------------
+#דף רישום המשתמש שבו המשתמש יוצר לעצמו משתמש וכאשר המשתמש תקין הוא נכנס ישירות לקוורי
 @app.route('/register', methods=['GET', 'POST'])
 def Register():
     form = UserRegistrationFormStructure(request.form)
@@ -146,7 +132,7 @@ def Register():
             db_table = ""
 
             flash('Thanks for registering new user - '+ form.FirstName.data + " " + form.LastName.data )
-            # Here you should put what to do (or were to go) if registration was good
+            return redirect('Query')
         else:
             flash('Error: User with this Username already exist ! - '+ form.username.data)
             form = UserRegistrationFormStructure(request.form)
@@ -183,7 +169,7 @@ def Login():
         )
 
 
-
+# בדאטא מודל שלי רואים הסבר על הדאטא ועל הנושא שלי זהו בעצם דף הפתיחה שכאשר אני לוחצת על כפתור הדאטא מעלה הוא מופיע
 @app.route('/DataModel')
 def DataModel():
     """Renders the contact page."""
@@ -194,7 +180,7 @@ def DataModel():
         message='In this page we will check if the amount of budget affects the popularity of the film'
     )
 
-
+#הדאטא סט מהווה לי את המידע הרלוונטי לאתר
 @app.route('/DataSet1')
 def DataSet1():
 
@@ -210,7 +196,7 @@ def DataSet1():
         year=datetime.now().year,
         message='In this page we will check if the amount of budget affects the popularity of the film '
     )
-
+#פונקציה זו יוצרת את הגרף 
 def plot_to_img(fig):
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)
