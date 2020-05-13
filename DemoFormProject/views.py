@@ -90,7 +90,7 @@ def Album():
         message='Welcome to my picture album'
     )
 
-
+#יצירת דף הקוורי
 @app.route('/Query', methods=['GET', 'POST'])
 def Query(): # יצירת דף הקוורי והגרף
 
@@ -109,22 +109,21 @@ def Query(): # יצירת דף הקוורי והגרף
         df=df.dropna()
         df["budget"]=df["budget"].astype(int)#לקיחת התקציב והפיכתו למספר שלם
         df=df[df["budget"]>100000]#אני אשתמש רק בתקציבים מעל מאה אלף שקל בכדי להקטין את כמות הסרטים שיופיעו בגרף כדי שיהיה מסודר
-        df=df[df["genres"].str.contains(genres)]#
-        df=df[df["release_date"].str.contains(year)]
-        df=df.drop("genres",1)
-        df=df.drop("release_date",1)
-        df=df.set_index("title")
-        df["popularity"]=df["popularity"].astype(float)
-        df["budget"]=df["budget"].apply(lambda x: x/1000000)
+        df=df[df["genres"].str.contains(genres)]#קבלת הז'אנר שבו בחר המשתמש והוצאת הסרטים שבהם ז'אנר זה נמצא 
+        df=df[df["release_date"].str.contains(year)]#קבלת השנה שבה בחר המשתמש והוצאת הסרטים שבהם שנה זו נמצאת
+        df=df.drop("genres",1)#בכדי שנוכל להמשיך הלאה יותר מסודר "זרקנו" בנתיים את הז'אנר כי כבר ניתחנו את הנתונים וסיימנו להשתמש בו
+        df=df.drop("release_date",1)#בכדי שנוכל להמשיך הלאה יותר מסודר "זרקנו" בנתיים את השנה כי כבר ניתחנו את הנתונים וסיימנו להשתמש בה
+        df=df.set_index("title")#
+        df["popularity"]=df["popularity"].astype(float)#לקיחת הפופולריות והפיכתו
+        df["budget"]=df["budget"].apply(lambda x: x/1000000)# לקיחת עמודת התקציב ולחלקה למיליון בכדי שהגרף יהיה יותר מסודר ושהתקציב יינתן במיליונים
         fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.set_xlabel("budget",fontsize = 22)
-        ax.set_ylabel("popularity",fontsize = 22)
-        df.plot("budget","popularity",kind="scatter",ax=ax,figsize=(20,50),fontsize = 22) 
+        ax = fig.add_subplot(111)#הכנת הגרף
+        ax.set_xlabel("budget",fontsize = 22)#הכנת שורת התקציב וגודל הכיתוב של "budget" 
+        ax.set_ylabel("popularity",fontsize = 22)#הכנת שורת התקציב וגודל הכיתוב של "budget"
+        df.plot("budget","popularity",kind="scatter",ax=ax,figsize=(20,50),fontsize = 22) #הכנת שורות הגרפים
         for k, v in df.iterrows():
             ax.annotate(k, v,size = 22)
-        chart = plot_to_img(fig)
-
+        chart = plot_to_img(fig)#מוציא את הגרף כתמונה
 
     return render_template('Query.html', 
             form = form,

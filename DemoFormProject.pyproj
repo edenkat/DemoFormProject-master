@@ -61,7 +61,6 @@
     <Content Include="DemoFormProject\templates\DataSet1.html" />
     <Content Include="DemoFormProject\templates\register.html" />
     <Content Include="DemoFormProject\templates\login.html" />
-    <Content Include="DemoFormProject\templates\PictureAlbum.html" />
     <Content Include="DemoFormProject\templates\query.html" />
     <Content Include="requirements.txt" />
     <Content Include="DemoFormProject\static\content\bootstrap.css" />
